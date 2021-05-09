@@ -12,6 +12,7 @@ import { extend, mergeOptions, formatComponentName } from '../util/index'
 
 let uid = 0
 
+/*装载_init 方法*/
 export function initMixin (Vue: Class<Component>) {
   Vue.prototype._init = function (options?: Object) {
     const vm: Component = this
@@ -49,12 +50,14 @@ export function initMixin (Vue: Class<Component>) {
     }
     // expose real self
     vm._self = vm
-    initLifecycle(vm)
-    initEvents(vm)
-    initRender(vm)
+
+
+    initLifecycle(vm) //$parent,$root,$children,$refs,_watcher,_inactive,_directInactive,_isDestroyed,_isBeingDestroyed
+    initEvents(vm)    //_events,_hasHookEvent
+    initRender(vm)    //_vnode,_staticTrees,$slots,$scopedSlots,_c,$createElement
     callHook(vm, 'beforeCreate')
     initInjections(vm) // resolve injections before data/props
-    initState(vm)
+    initState(vm)     //_watchers
     initProvide(vm) // resolve provide after data/props
     callHook(vm, 'created')
 
@@ -66,7 +69,7 @@ export function initMixin (Vue: Class<Component>) {
     }
 
     if (vm.$options.el) {
-      vm.$mount(vm.$options.el)
+      vm.$mount(vm.$options.el)  //传入el直接挂载
     }
   }
 }
@@ -90,7 +93,7 @@ export function initInternalComponent (vm: Component, options: InternalComponent
   }
 }
 
-export function resolveConstructorOptions (Ctor: Class<Component>) {
+export function resolveConstructorOptions (Ctor: Class<Component>) {   //参数 Vue.constructor
   let options = Ctor.options
   if (Ctor.super) {
     const superOptions = resolveConstructorOptions(Ctor.super)

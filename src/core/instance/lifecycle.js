@@ -42,7 +42,7 @@ export function initLifecycle (vm: Component) {
   }
 
   vm.$parent = parent
-  vm.$root = parent ? parent.$root : vm
+  vm.$root = parent ? parent.$root : vm   //向上查找$root
 
   vm.$children = []
   vm.$refs = {}

@@ -161,7 +161,7 @@ export function defineReactive (
       const value = getter ? getter.call(obj) : val
       if (Dep.target) {
         dep.depend()
-        if (childOb) {
+        if (childOb) {c
           childOb.dep.depend()
           if (Array.isArray(value)) {
             dependArray(value)
